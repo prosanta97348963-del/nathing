@@ -1,0 +1,6 @@
+{
+  "name": "QuickOrder - Distributor Sales Order App",
+  "description": "Fast, mobile-friendly order collection app for field salesmen to record customer orders and dispatch to back office in real time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

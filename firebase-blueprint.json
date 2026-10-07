@@ -1,0 +1,87 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Salesman or Administrator user profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Auth UID" },
+        "name": { "type": "string", "description": "Display name" },
+        "email": { "type": "string", "description": "Email address" },
+        "role": { "type": "string", "enum": ["admin", "salesman"], "description": "User role" },
+        "status": { "type": "string", "enum": ["active", "inactive"], "description": "Account status" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["uid", "name", "email", "role", "status"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Retail customer or store",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Customer name" },
+        "code": { "type": "string", "description": "Customer unique code" },
+        "phone": { "type": "string", "description": "Customer phone number" },
+        "address": { "type": "string", "description": "Customer address" },
+        "active": { "type": "boolean", "description": "Whether customer is active" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["name", "code", "active"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Product catalog item",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Product name" },
+        "code": { "type": "string", "description": "Product unique code" },
+        "price": { "type": "number", "description": "Price in INR" },
+        "active": { "type": "boolean", "description": "Whether product is active" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["name", "code", "price", "active"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order placed by salesman",
+      "type": "object",
+      "properties": {
+        "orderCode": { "type": "string", "description": "Display order identifier (e.g. ORD-20261007-001)" },
+        "salesmanUid": { "type": "string", "description": "UID of salesman who created the order" },
+        "salesmanName": { "type": "string", "description": "Name of salesman" },
+        "customerId": { "type": "string", "description": "Customer document ID" },
+        "customerName": { "type": "string", "description": "Customer name" },
+        "customerCode": { "type": "string", "description": "Customer code" },
+        "customerPhone": { "type": "string", "description": "Customer phone number" },
+        "items": { "type": "array", "description": "List of ordered items" },
+        "totalAmount": { "type": "number", "description": "Grand total price" },
+        "totalQuantity": { "type": "number", "description": "Total items count" },
+        "status": { "type": "string", "enum": ["NEW", "PROCESSING", "COMPLETED", "CANCELLED"], "description": "Order status" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["orderCode", "salesmanUid", "salesmanName", "customerId", "customerName", "items", "totalAmount", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and roles"
+    },
+    "/admins/{adminId}": {
+      "schema": "User",
+      "description": "Collection designating admin users"
+    },
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Customer master records"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Product catalog"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Submitted orders"
+    }
+  }
+}
